@@ -15,10 +15,12 @@
 
 #include "Game/Game.hpp"
 
+#include "Main/Main.hpp"
+#include "Menu/Menu.hpp"
 namespace Scenes
 {
-    std::unique_ptr<Scene> main_scene;
-    std::unique_ptr<Scene> other_scene;
+    std::unique_ptr<Main> main_scene;
+    std::unique_ptr<Menu> menu_scene;
 }
 
 Game game;
@@ -30,10 +32,10 @@ int main(void)
 	InitWindow(game.WIDTH, game.HEIGHT, game.TITLE.c_str());
 	game.Init();
 
-	Scenes::main_scene = std::make_unique<Scene>();
-    Scenes::other_scene = std::make_unique<Scene>();
+	Scenes::main_scene = std::make_unique<Main>();
+    Scenes::menu_scene = std::make_unique<Menu>();
 
-    game.SetScene(Scenes::main_scene.get());
+    game.SetStartScene(Scenes::menu_scene.get());
 
 	#if defined(PLATFORM_WEB)
     	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
